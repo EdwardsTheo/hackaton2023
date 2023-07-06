@@ -75,11 +75,24 @@ const NmapForm = (props) => {
     datasets: [
       {
         data: [openPorts, closedPorts],
-        backgroundColor: ["rgba(75,192,192,0.6)", "rgba(255,99,132,0.6)"],
-        borderColor: ["rgba(75,192,192,1)", "rgba(255,99,132,1)"],
+        backgroundColor: ["rgba(255,0,0,0.6)", "rgba(144,238,144,0.6)"],
+        borderColor: ["rgba(255,0,0,0.6)", "rgba(144,238,144,0.6)"],
         borderWidth: 1,
       },
     ],
+  }
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Graphique de vulnérabilités",
+      },
+    },
   }
 
   return (
@@ -99,7 +112,7 @@ const NmapForm = (props) => {
 
             <button
               type="submit"
-              className={`bg-blue-500 rounded-xl text-white font-semibold px-8 py-1 mt-3 ${
+              className={`bg-green-500 rounded-xl text-white font-semibold px-8 py-1 mt-3 ${
                 values.title === "" ? "bg-gray-400 cursor-not-allowed" : ""
               }`}
               disabled={values.title === ""}
@@ -113,7 +126,9 @@ const NmapForm = (props) => {
         <p className="flex justify-center mt-12">Loading...</p>
       ) : data ? (
         <div className="ml-3">
-          <div className={`w-full text-center p-4 rounded ${colorClass} mb-4`}>
+          <div
+            className={`w-full text-center p-4 rounded ${colorClass} mb-4 font-black`}
+          >
             {`Score de vulnérabilité : ${vulnerabilityScore}%`}
           </div>
 
@@ -143,7 +158,7 @@ const NmapForm = (props) => {
           </table>
           <div className="mt-16 h-64 w-64 relative left-[33%] flex flex-col gap-10 font-bold">
             <h1 className="flex justify-center">Graphique de vulnérabilités</h1>
-            <Doughnut data={pieData} />
+            <Doughnut data={pieData} options={options} />
           </div>
         </div>
       ) : null}
